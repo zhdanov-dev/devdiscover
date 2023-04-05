@@ -1,0 +1,28 @@
+[
+	{
+		"textOne": "все ошибки в проекте",
+		"accentOne": "java-script-react"
+	},
+	{
+		"textOne": "список событий проекта",
+		"accentOne": "java-script-react"
+	},
+	{
+		"textOne": "найди список событий проблемы",
+		"accentOne": "231"
+	},
+	{
+		"textOne": "удали проблему",
+		"accentOne": "76"
+	},
+	{
+		"textOne": "покажи событие",
+		"accentOne": "22",
+		"textTwo": "в проекте",
+		"accentTwo": "java-script-react"
+	},
+	{
+		"textOne": "найди последнее событе для проблемы",
+		"accentOne": "639"
+	}
+]

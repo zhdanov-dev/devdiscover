@@ -1,0 +1,14 @@
+@import '../../variables.scss';
+
+.container {
+	display: flex;
+	align-items: center;
+	gap: 5px;
+
+	.actent {
+		box-sizing: border-box;
+		background-color: #ffffff;
+		padding: 2px 5px 2px 5px;
+		border-radius: 5px;
+	}
+}
