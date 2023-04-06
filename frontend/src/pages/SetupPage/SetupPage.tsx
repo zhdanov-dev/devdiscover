@@ -1,4 +1,3 @@
-import stl from  './SetupPage.module.scss'
 import Setup from '../../components/setup/Setup';
 import { useAuth } from '../../hooks/use-auth';
 import { Navigate, useSearchParams } from 'react-router-dom';

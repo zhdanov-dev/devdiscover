@@ -9,6 +9,7 @@
 	height: 100px;
 
 	.user {
+		position: relative;
 		box-sizing: border-box;
 		padding: 2px 5px 2px 5px;
 		border-radius: 5px;
@@ -16,5 +17,36 @@
 		background-color: $color-light-gray;
 
 		cursor: pointer;
+
+		.logout {
+			box-sizing: border-box;
+			position: absolute;
+			width: 100%;
+			top: 30px;
+			right: 0px;
+			font-weight: 400;
+			text-align: center;
+			padding: 2px 5px 2px 5px;
+			border-radius: 5px;
+			background-color: $color-light-gray;
+
+			animation: wow 0.3s;
+
+			&:hover {
+				background-color: $color-gray;
+			}
+		}
+	}
+}
+
+@keyframes wow {
+	25% {
+		transform: translateY(-4px);
+	}
+	50% {
+		transform: translateY(-2px);
+	}
+	75% {
+		transform: translateY(0px);
 	}
 }

@@ -1,24 +1,39 @@
-import stl from './Search.module.scss'
-import logo from '../../static/svg/logoSearch.svg'
-import { SyntheticEvent, useState } from 'react'
-import { interpretRequest } from '../../util';
+import stl from './Search.module.scss';
+import { SyntheticEvent } from 'react';
+import { useAppDispatch, useAppSelector } from '../../hooks/redux-hooks';
+import { setSearch } from '../../store/slices/searchSlice';
+import search from '../../static/svg/search.svg'
 
-function Search() {
-	const [inputValue, setInputValue] = useState('');
-
-	function handlerSubmit(e: SyntheticEvent) {
-		e.preventDefault();
-		interpretRequest(inputValue);
-	}
-
-	return (
-		<form onSubmit={(e) => handlerSubmit(e)} className={stl.container}>
-			<img src={logo} alt="" />
-			<div className={stl.input}>
-				<input value={inputValue} onChange={(e) => {setInputValue(e.target.value)}} type="text" placeholder='Найдите информацию о логах в Sentry'/>
-			</div>
-		</form>
-	)
+interface SearchProps {
+	getSearchData(e: SyntheticEvent): void;
 }
 
-export default Search
+function Search({ getSearchData }: SearchProps) {
+	const { input } = useAppSelector(state => state.search);
+	const dispatch = useAppDispatch();
+
+	return (
+		<form onSubmit={e => getSearchData(e)} className={stl.container}>
+			<input
+				value={String(input)}
+				onChange={e => {
+					dispatch(
+						setSearch({
+							input: e.target.value,
+						})
+					);
+				}}
+				type='text'
+				placeholder='Найдите информацию о логах в Sentry'
+			/>
+			<img
+				onClick={e => getSearchData(e)}
+				className={stl.search}
+				src={search}
+				alt=''
+			/>
+		</form>
+	);
+}
+
+export default Search;

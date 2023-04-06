@@ -27,7 +27,3 @@ export function makeValidate(email: string, password: string, retypePassword: st
 	else if (password !== retypePassword) return 'Пароли не совпадают';
 	return '';
 }
-
-export function interpretRequest(request: string) {
-	const arrOfWords = request.split(' ');
-}

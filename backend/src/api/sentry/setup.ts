@@ -26,8 +26,6 @@ const router = express.Router();
 router.post('/', async (req, res) => {
 	const { code, installationId, sentryOrgSlug, userId } = req.body;
 
-	console.log(userId);
-
 	const payload = {
 		grant_type: 'authorization_code',
 		code,
