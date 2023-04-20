@@ -1,5 +1,5 @@
-# Клиентская часть приложения DevDiscover
+# Серверная часть приложения DevDiscover
 
-Клиент реализован с помощью таких технологий как React, ReduxToolkit, TypeScript.
+Backend реализован с помощью NodeJs, expressJs, TypeScript
 
 Для отдельного запуска Вам потребуется установить зависимоти `npm install`, а после выполнить запуск командой `npm start`
