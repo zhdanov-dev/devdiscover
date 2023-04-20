@@ -1,0 +1,34 @@
+#section1 {
+	color: #fff;
+}
+
+.fp-section {
+	display: flex;
+	justify-content: center;
+	height: 100vh;
+}
+
+.fp-overflow {
+	display: flex;
+	flex-direction: column;
+	align-items: center;
+	justify-content: center;
+}
+
+.slug {
+	width: fit-content;
+	box-sizing: border-box;
+	padding: 1px 5px 1px 5px;
+	border-radius: 5px;
+	font-weight: 500;
+	background-color: #e8e8e8;
+}
+
+.fp-watermark {
+	display: none;
+}
+
+.fp-tooltip {
+	font-family: 'TTNorms' !important;
+	color: black !important;
+}

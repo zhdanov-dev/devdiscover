@@ -30,9 +30,6 @@ function Setup({submitIntagration}: SetupProps) {
 						<li className={stl.subtitle}>
 							Получайте данные в нужнам вам формате
 						</li>
-						<li className={stl.subtitle}>
-							Возможность визуализировать данные в виде графика
-						</li>
 					</ul>
 					<p className={stl.key}>API</p>
 					<ul>

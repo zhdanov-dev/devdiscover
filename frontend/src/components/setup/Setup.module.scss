@@ -1,4 +1,4 @@
-@import '../../variables.scss';
+@import '../../styles/variables.scss';
 
 .container {
 	width: 400px;
@@ -51,7 +51,7 @@
 			font-size: 14px;
 			max-width: 90%;
 			line-height: 1.1rem;
-			color: $color-gray;
+			color: $color-gray-text;
 		}
 
 		.key {

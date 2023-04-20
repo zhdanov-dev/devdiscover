@@ -12,15 +12,17 @@ import ReactJson from 'react-json-view';
 import { Navigate } from 'react-router-dom';
 
 function MainPage() {
-	const { isAuth, email, id } = useAuth();
+	const { isAuth, email, token, id } = useAuth();
 	const [data, setData] = useState({});
 	const { input } = useAppSelector(state => state.search);
 
 	async function getSearchData(e: SyntheticEvent) {
+		console.log(input)
 		e.preventDefault();
 		await axios({
 			method: 'GET',
-			url: 'http://localhost:5000/api/sentry/interparte/',
+			url: 'http://localhost:5000/api/sentry/interprate/',
+			headers: { Authorization: 'Bearer ' + token },
 			params: { userId: id, str: input },
 		}).then(res => setData(res.data));
 	}

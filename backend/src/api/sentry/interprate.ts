@@ -44,6 +44,7 @@ router.get('/', async (req, res) => {
 	const specs = {
 		event: false,
 		error: false,
+		key: false,
 		nameOrNum: false,
 		latest: false,
 		oldest: false,
