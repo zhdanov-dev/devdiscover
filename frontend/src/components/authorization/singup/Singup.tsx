@@ -5,8 +5,9 @@ import pass from '../../../static/svg/pass.svg';
 import { SyntheticEvent, useState } from 'react';
 import { makeBackendRequest, makeValidate } from '../../../util';
 import { setUser } from '../../../store/slices/userSlice';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../../hooks/redux-hooks';
+import GoogleAuth from '../oauth/GoogleAuth';
 
 function Singup() {
 	const [email, setEmail] = useState('');
@@ -37,7 +38,7 @@ function Singup() {
 							id: response.data.id,
 							email: response.data.email,
 							token: response.data.token,
-							integration: false
+							integration: false,
 						})
 					);
 					navigate('/integration');
@@ -45,6 +46,8 @@ function Singup() {
 				.catch(error => setError(error.response.data.message));
 		}
 	}
+
+	const location = useLocation();
 
 	return (
 		<form className={stl.form__container}>
@@ -122,15 +125,16 @@ function Singup() {
 			>
 				<span>Создать учетную запись</span>
 			</button>
-			{/* <div className={stl.separator}>
+			<div className={stl.separator}>
 				<hr className={stl.line} />
 				<span>Или</span>
 				<hr className={stl.line} />
 			</div>
-			<button className={stl.signin__ggl}>
+			{/* <button className={stl.signin__ggl}>
 				<img src={google} alt='' />
 				<span>Войти с помощью Google</span>
 			</button> */}
+			<GoogleAuth form={location.state?.from?.pathname || '/'} />
 			<div className={stl.login}>
 				<span>Уже есть учетная запись? </span>
 				<NavLink to={'/login'}>

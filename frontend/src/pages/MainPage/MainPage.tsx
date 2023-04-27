@@ -17,7 +17,7 @@ function MainPage() {
 	const { input } = useAppSelector(state => state.search);
 
 	async function getSearchData(e: SyntheticEvent) {
-		console.log(input)
+		console.log(input);
 		e.preventDefault();
 		await axios({
 			method: 'GET',

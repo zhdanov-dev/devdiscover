@@ -17,17 +17,41 @@ const router = express.Router();
 
 router.post('/', async (request, response, next) => {
 	try {
-		const { email, password } = request.body;
-		if (!email || !password) {
+		const { email, password, sub } = request.body;
+		let candidate;
+		if (sub) {
+			candidate = await User.findOne({ where: { sub: sub } });
+		} else if (!email || !password) {
 			return next(error.badRequest('Некорректный email или password!'));
-		}
-		const candidate = await User.findOne({ where: { email: email } });
-		if (!candidate) {
-			const hashpass = await bcrypt.hash(password, 5);
-			const user = await User.create({
-				email: email,
-				password: hashpass,
+		} else candidate = await User.findOne({ where: { email: email } });
+		if (candidate && sub) {
+			const tokens = genereteToken(candidate.id, email);
+			await saveToken(candidate.id, tokens.refreshToken);
+			response.cookie('refreshToken', tokens.refreshToken, {
+				maxAge: 15 * 24 * 60 * 60 * 1000,
+				httpOnly: true,
 			});
+			return response.status(200).json({
+				id: candidate.id,
+				email: candidate.email,
+				token: tokens.accessToken,
+				slug: candidate.externalSlug,
+			});
+		}
+		else if (!candidate) {
+			let user;
+			if (sub) {
+				user = await User.create({
+					email: email,
+					sub: sub,
+				});
+			} else {
+				const hashpass = await bcrypt.hash(password, 5);
+				user = await User.create({
+					email: email,
+					password: hashpass,
+				});
+			}
 			const tokens = genereteToken(user.id, email);
 			await saveToken(user.id, tokens.refreshToken);
 			response.cookie('refreshToken', tokens.refreshToken, {
@@ -38,9 +62,7 @@ router.post('/', async (request, response, next) => {
 				.status(200)
 				.json({ id: user.id, email: email, token: tokens.accessToken });
 		} else {
-			return next(
-				error.badRequest('Пользователь с таким email уже существует!')
-			);
+			return next(error.badRequest('Пользователь уже существует!'));
 		}
 	} catch (error) {
 		console.log(error);

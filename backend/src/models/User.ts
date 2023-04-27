@@ -18,6 +18,9 @@ export default class User extends Model {
 	password: string;
 
 	@Column
+	sub: string;
+
+	@Column
 	externalSlug: string;
 
 	@HasOne(() => Token)

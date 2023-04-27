@@ -5,8 +5,9 @@ import pass from '../../../static/svg/pass.svg';
 import { SyntheticEvent, useState } from 'react';
 import { makeBackendRequest } from '../../../util';
 import { setUser } from '../../../store/slices/userSlice';
-import { NavLink, useNavigate } from 'react-router-dom';
+import { NavLink, useLocation, useNavigate } from 'react-router-dom';
 import { useAppDispatch } from '../../../hooks/redux-hooks';
+import GoogleAuth from '../oauth/GoogleAuth';
 
 function Login() {
 	const [email, setEmail] = useState('');
@@ -37,6 +38,8 @@ function Login() {
 			.catch(error => setError(error.response.data.message));
 	}
 
+	const location = useLocation();
+
 	return (
 		<form className={stl.form__container}>
 			<div className={stl.logo__container}>
@@ -45,7 +48,7 @@ function Login() {
 			<div className={stl.title__container}>
 				<p className={stl.title}>Войдите в свой аккаунт</p>
 				<span className={stl.subtitle}>
-					 DevDiscover - метапоисковая система для DevOps инженера 
+					DevDiscover - метапоисковая система для DevOps инженера
 				</span>
 			</div>
 			<br />
@@ -92,6 +95,16 @@ function Login() {
 			>
 				<span>Войти</span>
 			</button>
+			<div className={stl.separator}>
+				<hr className={stl.line} />
+				<span>Или</span>
+				<hr className={stl.line} />
+			</div>
+			{/* <button className={stl.signin__ggl}>
+				<img src={google} alt='' />
+				<span>Войти с помощью Google</span>
+			</button> */}
+			<GoogleAuth form={location.state?.from?.pathname || '/'}/>
 			<div className={stl.login}>
 				<span>Нет учетной записи? </span>
 				<NavLink to={'/signup'}>

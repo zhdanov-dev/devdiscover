@@ -4,7 +4,7 @@ import Token from './Token';
 import User from './User';
 
 const sequelizeConfig = {
-	host: 'database',
+	host: 'localhost',
 	port: 5432,
 };
 
