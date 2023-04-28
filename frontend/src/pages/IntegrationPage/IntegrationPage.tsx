@@ -3,15 +3,17 @@ import sentryFirst from '../../static/images/sentryFirst.png';
 import sentrySecond from '../../static/images/sentrySecond.png';
 
 import './IntegrationStyles.scss';
-import Section from '../../components/section/Section';	
+import Section from '../../components/section/Section';
 import { useAuth } from '../../hooks/use-auth';
 import { Navigate } from 'react-router-dom';
 
 const anchors = ['Sentry', 'Sentry-First-Step', 'Sentry-Second-Step'];
 
 function IntegrationPage() {
-	const { isAuth } = useAuth();
-	return isAuth ? (
+	const { isAuth, integration } = useAuth();
+	return isAuth && integration ? (
+		<Navigate to={'/main'}></Navigate>
+	) : isAuth && !integration ? (
 		<ReactFullpage
 			credits={{}}
 			anchors={anchors}
@@ -50,6 +52,7 @@ function IntegrationPage() {
 		/>
 	) : (
 		<Navigate to={'/signup'}></Navigate>
-	);};
+	);
+}
 
 export default IntegrationPage;

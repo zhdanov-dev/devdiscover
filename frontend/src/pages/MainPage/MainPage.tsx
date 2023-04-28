@@ -51,6 +51,7 @@ function MainPage() {
 					})}
 				</div>
 			)}
+			{/* <button onClick={() => methodDoesNotExist()}>Break the world</button>; */}
 		</div>
 	) : (
 		<Navigate to={'/signup'}></Navigate>

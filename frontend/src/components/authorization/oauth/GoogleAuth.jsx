@@ -21,7 +21,7 @@ export default function GoogleAuth(props) {
 						id: response.data.id,
 						email: response.data.email,
 						token: response.data.token,
-						integration: false,
+						integration: response.data.slug,
 					})
 				);
 				navigate('/integration');

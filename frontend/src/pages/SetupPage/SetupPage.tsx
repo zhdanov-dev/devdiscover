@@ -2,8 +2,11 @@ import Setup from '../../components/setup/Setup';
 import { useAuth } from '../../hooks/use-auth';
 import { Navigate, useSearchParams } from 'react-router-dom';
 import { makeBackendRequest } from '../../util';
+import { removeUser } from '../../store/slices/userSlice';
+import { useAppDispatch } from '../../hooks/redux-hooks';
 
 const REDIRECT_TIMEOUT = 3 * 1000;
+const dispatch = useAppDispatch();
 
 function SetupPage() {
 	const { isAuth, id } = useAuth();
@@ -19,6 +22,7 @@ function SetupPage() {
 		};
 		const res = await makeBackendRequest('/api/sentry/setup/', 'POST', payload);
 		setTimeout(() => (window.location = res.data.redirectUrl), REDIRECT_TIMEOUT);
+		dispatch(removeUser());
 	}
 
 	return isAuth ? (
