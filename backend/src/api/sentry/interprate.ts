@@ -9,7 +9,7 @@ const router = express.Router();
 router.get('/', async (req, res) => {
 	const { str, userId } = req.query;
 	const tokenizerArr = String(str).split(' ');
-	const specs = {
+	const parameters = {
 		event: false,
 		name: false,
 		num: false,
@@ -36,25 +36,25 @@ router.get('/', async (req, res) => {
 		const stemWord = natural.PorterStemmerRu.stem(word);
 
 		if (natural.LevenshteinDistance(stemWord, latest) <= 1) {
-			specs.latest = true;
+			parameters.latest = true;
 		}
 		if (natural.LevenshteinDistance(stemWord, oldest) <= 1) {
-			specs.oldest = true;
+			parameters.oldest = true;
 		}
 		if (natural.LevenshteinDistance(stemWord, event) <= 1) {
-			specs.event = true;
+			parameters.event = true;
 		}
 		if (natural.LevenshteinDistance(stemWord, tag) <= 1) {
-			specs.key = true;
+			parameters.key = true;
 		}
 		if (natural.LevenshteinDistance(stemWord, hash) <= 1) {
-			specs.hash = true;
+			parameters.hash = true;
 		}
 		if (
 			natural.LevenshteinDistance(stemWord, error) <= 1 ||
 			natural.LevenshteinDistance(stemWord, problem) <= 1
 		) {
-			specs.error = true;
+			parameters.error = true;
 		}
 		if (/^[a-z]+$/i.test(word)) {
 			key = word;
@@ -63,11 +63,11 @@ router.get('/', async (req, res) => {
 			(/[a-z].*\d|\d.*[a-z]/i.test(word) && word.length === 32) ||
 			(/^\d+$/.test(word) && word.length === 10)
 		) {
-			specs.num = true;
+			parameters.num = true;
 			num = word;
 		}
 		if (/^[a-z0-9!@#\$%\^\&*\)\(+=._-]+$/i.test(word) && !key && word !== num) {
-			specs.name = true;
+			parameters.name = true;
 			name = word;
 		}
 	});
@@ -83,9 +83,9 @@ router.get('/', async (req, res) => {
 		'00110001': '/issues/:num/hashes/',
 	};
 
-	const specKey = Object.values(specs).map(v => (v ? 1 : 0)).join('');
-	if (pathTable[specKey]) {
-		const path = pathTable[specKey];
+	const paramKey = Object.values(parameters).map(param => (param ? 1 : 0)).join('');
+	if (pathTable[paramKey]) {
+		const path = pathTable[paramKey];
 		const user = await User.findOne({ where: { id: userId } });
 		const token = await SentryAPIClient.getSentryAPIToken(Number(userId));
 		const url = `${process.env.SENTRY_URL}/api/0${path
@@ -93,7 +93,7 @@ router.get('/', async (req, res) => {
 			.replace(':name', name)
 			.replace(':num', num)
 			.replace(':key', key)}`;
-			
+
 		await axios({
 			method: 'GET',
 			url,
