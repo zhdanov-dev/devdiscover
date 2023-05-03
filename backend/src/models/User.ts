@@ -1,11 +1,4 @@
-import {
-	Column,
-	ForeignKey,
-	HasMany,
-	HasOne,
-	Model,
-	Table,
-} from 'sequelize-typescript';
+import { Column, HasMany, HasOne,	Model, Table } from 'sequelize-typescript';
 import SentryInstallation from './SentryInstallation';
 import Token from './Token';
 

@@ -8,7 +8,7 @@ export type Organization = {
 
 export type ExampleType = {
   textOne: string;
-  accentOne: string;
+  accentOne?: string;
   textTwo?: string;
   accentTwo?: string;
 }

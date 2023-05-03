@@ -6,9 +6,9 @@ import { removeUser } from '../../store/slices/userSlice';
 import { useAppDispatch } from '../../hooks/redux-hooks';
 
 const REDIRECT_TIMEOUT = 3 * 1000;
-const dispatch = useAppDispatch();
 
 function SetupPage() {
+	const dispatch = useAppDispatch();
 	const { isAuth, id } = useAuth();
 	const [searchParams] = useSearchParams();
 

@@ -1,0 +1,19 @@
+@import '../../styles/variables.scss';
+
+.table {
+		display: flex;
+		flex-direction: column;
+		width: 100%;
+		gap: 10px;
+
+		.content {
+			border-radius: 10px;
+			border: 1px solid $color-gray;
+
+			> div:nth-child(2n) {
+				background-color: $color-light-gray;
+			}
+
+			overflow: hidden;
+		}
+	}

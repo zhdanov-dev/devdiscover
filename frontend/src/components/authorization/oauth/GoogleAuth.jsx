@@ -37,11 +37,10 @@ export default function GoogleAuth(props) {
 		});
 
 		google.accounts.id.renderButton(document.getElementById('googleSignIn'), {
-			theme: 'outline',
+			theme: 'outlnoneine',
 			width: 480,
 			height: 45,
-			type: 'standard',
-			size: 'large',
+			size: 'large'
 		});
 	}, []);
 

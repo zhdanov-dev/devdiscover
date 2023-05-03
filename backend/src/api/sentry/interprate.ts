@@ -2,6 +2,7 @@ import express from 'express';
 import SentryAPIClient from '../../util/SentryAPIClient';
 import User from '../../models/User';
 import axios from 'axios';
+import { PathTable } from '../../types';
 
 const natural = require('natural');
 const router = express.Router();
@@ -19,6 +20,7 @@ router.get('/', async (req, res) => {
 		key: false,
 		hash: false
 	};
+	let table = false;
 
 	const latest = 'последн';
 	const oldest = 'стар';
@@ -50,6 +52,9 @@ router.get('/', async (req, res) => {
 		if (natural.LevenshteinDistance(stemWord, hash) <= 1) {
 			parameters.hash = true;
 		}
+		if (natural.LevenshteinDistance(stemWord, 'таблиц') <= 1) {
+			table = true;
+		}
 		if (
 			natural.LevenshteinDistance(stemWord, error) <= 1 ||
 			natural.LevenshteinDistance(stemWord, problem) <= 1
@@ -72,7 +77,7 @@ router.get('/', async (req, res) => {
 		}
 	});
 
-	const pathTable: any = {
+	const pathTable: PathTable = {
 		'11000000': '/projects/:externalSlug/:name/events/',
 		'11100000': '/projects/:externalSlug/:name/events/:num/',
 		'01010000': '/projects/:externalSlug/:name/issues/',
@@ -98,10 +103,9 @@ router.get('/', async (req, res) => {
 			method: 'GET',
 			url,
 			headers: { Authorization: `Bearer ${token}` },
-		}).then(resp => (result = resp.data));
+		}).then(res => (result = res.data));
 	}
-
-	res.send(result);
+	table ? res.send({ result, paramKey }) : res.send({ result });
 });
 
 export default router;

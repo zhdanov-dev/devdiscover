@@ -1,28 +1,35 @@
 [
 	{
 		"textOne": "все ошибки в проекте",
-		"accentOne": "java-script-react"
+		"accentOne": "javascript-react",
+		"textTwo": "в виде таблицы"
 	},
 	{
 		"textOne": "список событий проекта",
-		"accentOne": "java-script-react"
+		"accentOne": "javascript-react"
 	},
 	{
 		"textOne": "найди список событий проблемы",
-		"accentOne": "231"
+		"accentOne": "4150374871"
 	},
 	{
-		"textOne": "удали проблему",
-		"accentOne": "76"
+		"textOne": "список хешей проблемы",
+		"accentOne": "4150374871"
+	},
+	{
+		"textOne": "сведения о теге",
+		"accentOne": "browser",
+		"textTwo": "в ошибке",
+		"accentTwo": "4150374871"
 	},
 	{
 		"textOne": "покажи событие",
-		"accentOne": "22",
+		"accentOne": "9999aaaaca8b46d797c23c6077c6ff01",
 		"textTwo": "в проекте",
-		"accentTwo": "java-script-react"
+		"accentTwo": "javascript-react"
 	},
 	{
 		"textOne": "найди последнее событе для проблемы",
-		"accentOne": "639"
+		"accentOne": "4150374871"
 	}
 ]
