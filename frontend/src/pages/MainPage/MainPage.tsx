@@ -11,38 +11,50 @@ import { useAppSelector } from '../../hooks/redux-hooks';
 import ReactJson from 'react-json-view';
 import { Navigate } from 'react-router-dom';
 import Table from '../../components/table/Table';
+import Loader from '../../components/loader/Loader';
 
 function MainPage() {
 	const { isAuth, email, token, id } = useAuth();
 	const [data, setData] = useState<any>({});
 	const [param, setParam] = useState('');
-	const dat = useRef<any>();
+	const dataRef = useRef<any>();
 	const { input } = useAppSelector(state => state.search);
+	const [isLoading, setLoading] = useState(false);
 
 	async function getSearchData(e: SyntheticEvent) {
-		console.log(input);
 		e.preventDefault();
-		await axios({
-			method: 'GET',
-			url: 'http://localhost:5000/api/sentry/interprate/',
-			headers: { Authorization: 'Bearer ' + token },
-			params: { userId: id, str: input },
-		}).then(res => {
-			setData(res.data.result);
-			dat.current = res.data.result;
-			res.data.paramKey ? setParam(res.data.paramKey) : setParam('')
-		});
+		if (input !== '') {
+			setLoading(true);
+			await axios({
+				method: 'GET',
+				url: 'http://localhost:5000/api/sentry/interprate/',
+				headers: { Authorization: 'Bearer ' + token },
+				params: { userId: id, str: input },
+			}).then(res => {
+				setData(res.data.result);
+				dataRef.current = res.data.result;
+				res.data.paramKey ? setParam(res.data.paramKey) : setParam('');
+				setLoading(false);
+			});
+		}
+	}
+
+	function renderContent() {
+		if (
+			Object.keys(data).length !== 0 &&
+			param !== '01010000' &&
+			param !== '11000000' &&
+			param !== '10110000'
+		)
+			return <ReactJson src={data} />;
+		else return <Table values={dataRef.current} param={param} />;
 	}
 
 	return isAuth ? (
 		<div className={stl.container}>
 			<Header email={email} />
 			<Search getSearchData={getSearchData} />
-			{Object.keys(data).length !== 0 && param === '' ? (
-				<ReactJson src={data} />
-			) : Object.keys(data).length !== 0 && param !== '' ? (
-				<Table values={dat.current} param={param} />
-			) : (
+			{!isLoading && Object.keys(data).length === 0 && (
 				<div className={stl.examples}>
 					<span className={stl.title}>Примеры запросов:</span>
 					{examples.map((example: ExampleType, key: number) => {
@@ -58,16 +70,17 @@ function MainPage() {
 							</div>
 						);
 					})}
+					<div className={stl.annot}>
+						<span>
+							{
+								'Написав Ваш запрос, Вы можете добавить тип вывода данных, по-умолчанию это JSON, но Вы также можете получить данные в виде таблицы, как в примере 1, таким орбразом удобнее просматривать большое количество данных. Еденичные данные всегда будут представлены в формате JSON.'
+							}
+						</span>
+					</div>
 				</div>
 			)}
-			{/* <button onClick={() => methodDoesNotExist()}>Break the world</button>; */}
-			<div className={stl.annot}>
-				<span>
-					{
-						'Написав Ваш запрос, Вы можете добавить тип вывода данных, по-умолчанию это JSON, но Вы также можете получить данные в виде таблицы, как в примере 1, таким орбразом удобнее просматривать большое количество данных. Еденичные данные всегда будут представлены в формате JSON.'
-					}
-				</span>
-			</div>
+			{isLoading && <Loader />}
+			{!isLoading && Object.keys(data).length !== 0 && renderContent()}
 		</div>
 	) : (
 		<Navigate to={'/signup'}></Navigate>

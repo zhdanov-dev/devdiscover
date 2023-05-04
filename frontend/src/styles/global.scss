@@ -60,6 +60,14 @@ body {
 	-moz-osx-font-smoothing: grayscale;
 	color: $color-black;
 	overflow: auto;
+
+	&::-webkit-scrollbar {
+		width: 6px;
+	}
+
+	&::-webkit-scrollbar-thumb {
+		background-color: $color-link;
+	}
 }
 
 #root {
