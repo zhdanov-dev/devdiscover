@@ -7,7 +7,7 @@ import SetupPage from './pages/SetupPage/SetupPage';
 import MainPage from './pages/MainPage/MainPage';
 
 // import * as Sentry from '@sentry/react';
-
+//
 // Sentry.init({
 // 	dsn: 'https://3a125da8dacb468b8a521789489fc2e8@o4504841935716352.ingest.sentry.io/4505091339845632',
 // 	integrations: [new Sentry.BrowserTracing(), new Sentry.Replay()],
