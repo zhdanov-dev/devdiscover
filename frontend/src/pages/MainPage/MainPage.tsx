@@ -27,7 +27,7 @@ function MainPage() {
 			setLoading(true);
 			await axios({
 				method: 'GET',
-				url: 'http://localhost:5000/api/sentry/interprate/',
+				url: 'http://194.67.116.184:5000/api/sentry/interprate/',
 				headers: { Authorization: 'Bearer ' + token },
 				params: { userId: id, str: input },
 			}).then(res => {

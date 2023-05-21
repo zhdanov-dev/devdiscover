@@ -51,6 +51,7 @@ services:
     build:
       context: data
       target: database
+    restart: always
     healthcheck:
       test: ["CMD-SHELL", "pg_isready"]
       start_period: 10s
@@ -60,12 +61,7 @@ services:
     ports:
       - "${DB_PORT}:5432"
     volumes:
-      # Create a managed docker volume to persist data if the container shuts down
       - db:/var/lib/postgresql/data
-      # Watch and react to changes in local data directory
       - type: bind
         source: ./data
         target: /data
-
-volumes:
-  db:

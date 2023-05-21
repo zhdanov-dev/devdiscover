@@ -5,7 +5,7 @@ export async function makeBackendRequest(
 	method: string,
 	data?: Record<string, any>
 ) {
-	const baseEndpoint = 'http://localhost:5000';
+	const baseEndpoint = 'http://194.67.116.184:5000';
 	const res = await axios({
 		method: method,
 		url: `${baseEndpoint}${path}`,

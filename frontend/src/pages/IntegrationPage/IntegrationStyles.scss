@@ -3,16 +3,16 @@
 }
 
 .fp-section {
-	display: flex;
-	justify-content: center;
-	height: 100vh;
+	display: flex !important;
+	justify-content: center !important;
+	height: 100vh !important;
 }
 
 .fp-overflow {
-	display: flex;
-	flex-direction: column;
-	align-items: center;
-	justify-content: center;
+	display: flex !important;
+	flex-direction: column !important;
+	align-items: center !important;
+	justify-content: center !important;
 }
 
 .slug {
